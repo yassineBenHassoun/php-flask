@@ -1,0 +1,10 @@
+app/src/vendor
+app/src/composer.phar
+app/src/composer.lock
+app/src/.DS_Store
+app/src/Thumbs.db
+app/src/phpunit.xml
+app/src/.idea
+app/src/.fleet
+app/src/.vscode
+app/src/.phpunit.result.cache
