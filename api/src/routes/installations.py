@@ -49,8 +49,6 @@ def installationsPost():
     requestData = request.get_json()
     createInstall = installations.creer(requestData)
     
-
-    
     response = make_response(json.dumps(createInstall), 200)
     response.headers["Content-Type"] = "text/json; charset=utf-8"
 

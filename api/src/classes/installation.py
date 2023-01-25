@@ -46,8 +46,6 @@ class Installation:
 
     def creer(self,requestData):
 
-        insertInstallation = list()
-        pathApi = os.path.dirname(os.path.realpath(__file__))
         try:
         
             rq = self._bdSqlite.cursor()

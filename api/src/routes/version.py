@@ -17,7 +17,7 @@ from __main__ import app
 
 @app.route('/version', methods=['GET', 'DELETE'])
 def versionGet(*args, **kwargs):
-    version = configApi['Misc']['Version']
+    version = '1.0.1'
 
     response = make_response(json.dumps({'version':version}), 200)
     response.headers["Content-Type"] = "text/json; charset=utf-8"
