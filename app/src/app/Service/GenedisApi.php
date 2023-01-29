@@ -52,7 +52,11 @@ class GenedisApi
 
             if ($response->getStatusCode() == 200) {
 
-                return json_decode($response->getBody());
+                $result = [
+                    "status" => 200,
+                    json_decode($response->getBody())
+                ];
+                return $result;
             } 
             
         } else {
@@ -63,7 +67,8 @@ class GenedisApi
 
     public static function getPropietaires() {
 
-        $res = $this->guzzle->get($this->uriAllProp);
+        $client = new Client();
+        $res = $client->get(self::$uriAllProp);
 
         if ($res->getStatusCode() == 200) {
 

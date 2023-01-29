@@ -8,3 +8,5 @@ app/src/.idea
 app/src/.fleet
 app/src/.vscode
 app/src/.phpunit.result.cache
+app/src/node_modules/*
+app/src/node_modules

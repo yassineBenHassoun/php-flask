@@ -14,6 +14,10 @@ WORKDIR /var/www/app
 COPY ./src/composer.json ./src/composer.lock* ./
 RUN composer install --no-scripts --no-autoloader --ansi --no-interaction
 
+RUN apk add --update nodejs npm
+COPY ./src/package.json ./src/package-lock.json /var/www/app/
+RUN npm install
+
 # add custom php-fpm pool settings, these get written at entrypoint startup
 ENV FPM_PM_MAX_CHILDREN=20 \
     FPM_PM_START_SERVERS=2 \
@@ -37,6 +41,10 @@ COPY ./docker/default.conf /etc/nginx/conf.d/default.conf
 
 RUN chmod -R 777 /usr/local/bin/docker-php-entrypoint-dev
 RUN chmod -R 777 /usr/local/bin/docker-php-entrypoint
+
+COPY ./src/.env /var/www/app
+
+RUN php artisan key:generate
 
 # copy application code
 WORKDIR /var/www/app

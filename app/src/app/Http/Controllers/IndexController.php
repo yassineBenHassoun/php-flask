@@ -18,7 +18,8 @@ class IndexController extends Controller
             "anneeInstallation"=> "T.A. 3000",
             "idProprietaire" => 1
         ];
-        dd(GenedisApi::registerInstallation($arr));
+        //dd(GenedisApi::registerInstallation($arr));
+        dd(GenedisApi::getPropietaires());
         //return view('index');
     }
 }
