@@ -10,6 +10,7 @@ class GenedisApi
     private static $uriAllInstall = 'http://api:5000/installations';
     private static $uriInstallPropietaireById = 'http://api:5000/installations/parProprietaire/';
     private static $uriAllProp = "http://api:5000/proprietaires";
+    private static $uriPropById = "http://api:5000/proprietaires/";
 
     
     public static function getInstallations() {
@@ -76,5 +77,19 @@ class GenedisApi
         } 
        
         return null;
+    }
+
+    public static function getPropietaireById($id) {
+        
+        $client = new Client();
+        $res = $client->get(self::$uriPropById.$id);
+
+        if ($res->getStatusCode() == 200) {
+
+            return json_decode($res->getBody());
+        } 
+       
+        return null;
+     
     }
 }

@@ -8,18 +8,66 @@ class IndexController extends Controller
 {
     public function index() {
 
-        #dd(GenedisApi::getInstallByPropietaire(1));
+        $installations = GenedisApi::getInstallations();
+        
+        $resInstall = [];
 
-        $arr = [
+        $communes = [];
+        $communesLabels = [];
 
-            "nom"=> "Laravel",
-            "commune"=> "newYork",
-            "capacite"=> 1200.0,
-            "anneeInstallation"=> "T.A. 3000",
-            "idProprietaire" => 1
-        ];
-        //dd(GenedisApi::registerInstallation($arr));
-        dd(GenedisApi::getPropietaires());
-        //return view('index');
+
+        foreach ($installations as $value){
+           
+            $prop = GenedisApi::getPropietaireById($value[4]);
+            $communeName = $value[1];
+
+            if (!in_array($communeName,$communesLabels)) {
+
+                $communesLabels[] = $value[1];
+            }
+
+            
+            if (array_key_exists($communeName ,$communes)) {
+
+                $communes[$communeName]['val'] =  $communes[$communeName]['val'] +1;
+            } else {
+
+                $communes[$communeName] = ['val' => 1];
+
+            }
+
+            $propName = $prop[0][1];
+
+            if (array_key_exists($propName ,$resInstall))   {
+
+                $resInstall[$propName]['val'] =  $resInstall[$propName]['val'] +1;
+                
+            } else  {
+                $resInstall[$propName] = ['val' => 1];
+            } 
+          
+          
+        }
+
+
+
+        $labels = array_keys($resInstall);
+
+        $data = [];
+
+        $dataCommune = [];
+
+        foreach($resInstall as $d) {
+
+            $data[] = $d['val'];
+        }
+
+        foreach($communes as $d) {
+
+            $dataCommune[] = $d['val'];
+        }
+
+
+        return view('index', compact('labels','data','communesLabels','dataCommune'));
     }
 }
